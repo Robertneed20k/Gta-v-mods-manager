@@ -42,6 +42,7 @@ success_message() {
 # Function to backup mods
 backup_mods() {
     while true; do
+        clear
         list_vmods_folders || return
         selected_folder="$folder_name"
 
@@ -50,7 +51,7 @@ backup_mods() {
             cp "$UPDATE_DIR/update.rpf" "$VMODS_DIR/$selected_folder/update/update.rpf"
             rm "$UPDATE_DIR/update.rpf"
             success_message "backed up"
-            break
+            return
         else
             echo "No mods found in $UPDATE_DIR to backup."
             read -p "Press Enter to continue..."
@@ -62,6 +63,7 @@ backup_mods() {
 # Function to install mods
 install_mods() {
     while true; do
+        clear
         list_vmods_folders || return
         selected_folder="$folder_name"
 
@@ -69,7 +71,7 @@ install_mods() {
         if [ -f "$VMODS_DIR/$selected_folder/update/update.rpf" ]; then
             mv "$VMODS_DIR/$selected_folder/update/update.rpf" "$UPDATE_DIR/update.rpf"
             success_message "installed"
-            break
+            return
         else
             echo "No mods found in $VMODS_DIR/$selected_folder to install."
             read -p "Press Enter to continue..."
@@ -81,6 +83,7 @@ install_mods() {
 # Function to replace mods
 replace_mods() {
     while true; do
+        clear
         list_vmods_folders || return
         selected_folder="$folder_name"
 
@@ -88,7 +91,7 @@ replace_mods() {
         if [ -f "$VMODS_DIR/$selected_folder/update/update.rpf" ]; then
             mv "$VMODS_DIR/$selected_folder/update/update.rpf" "$UPDATE_DIR/update.rpf"
             success_message "replaced"
-            break
+            return
         else
             echo "No mods found in $VMODS_DIR/$selected_folder to replace."
             read -p "Press Enter to continue..."
@@ -97,11 +100,9 @@ replace_mods() {
     done
 }
 
-# Main Menu
-exit_flag=0
-while [ $exit_flag -eq 0 ]; do
+# Main menu
+while true; do
     clear
-
     echo "GTA V Mod Transfer Script"
     echo "1. Backup Mods"
     echo "2. Install Mods"
@@ -115,12 +116,9 @@ while [ $exit_flag -eq 0 ]; do
         1) backup_mods;;
         2) install_mods;;
         3) replace_mods;;
-        4) echo "Exiting..."; exit_flag=1;;
+        4) echo "Exiting..."; exit 0;;
         *) echo "Invalid option";;
     esac
 
-    # Wait for user input to continue
-    if [ $exit_flag -eq 0 ]; then
-        read -p "Press Enter to continue..."
-    fi
+    read -p "Press Enter to continue..."
 done
