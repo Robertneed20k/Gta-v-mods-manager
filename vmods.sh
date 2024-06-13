@@ -5,6 +5,8 @@ GTAV_DIR="/sdcard/download/pc games/Grand Theft Auto V"
 MODS_DIR="$GTAV_DIR/mods"
 UPDATE_DIR="$MODS_DIR/update"
 VMODS_DIR="/sdcard/download/vmods"
+INSTALL_SCRIPT="install_vmods.sh"
+TERMUX_BIN="/data/data/com.termux/files/usr/bin"
 
 # Ensure necessary directories exist
 mkdir -p "$MODS_DIR"
@@ -100,6 +102,14 @@ replace_mods() {
     done
 }
 
+# Function to install vmods.sh
+install_vmods() {
+    clear
+    echo "Installing vmods..."
+    bash "$INSTALL_SCRIPT"
+    read -p "Press Enter to continue..."
+}
+
 # Main menu
 while true; do
     clear
@@ -107,7 +117,8 @@ while true; do
     echo "1. Backup Mods"
     echo "2. Install Mods"
     echo "3. Replace Mods"
-    echo "4. Exit"
+    echo "4. Install vmods"
+    echo "5. Exit"
     echo -n "Select an option: "
     read choice
 
@@ -116,9 +127,10 @@ while true; do
         1) backup_mods;;
         2) install_mods;;
         3) replace_mods;;
-        4) echo "Exiting..."; exit 0;;
+        4) install_vmods;;
+        5) echo "Exiting..."; exit 0;;
         *) echo "Invalid option";;
     esac
 
     read -p "Press Enter to continue..."
-done
+}
