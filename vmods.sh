@@ -10,6 +10,17 @@ VMODS_DIR="/sdcard/download/vmods"
 mkdir -p "$MODS_DIR"
 mkdir -p "$UPDATE_DIR"
 
+# Function to check for updates
+function check_for_updates() {
+    echo "Checking for updates..."
+    curl -s -o ~/update_vmods.sh https://raw.githubusercontent.com/robertneed20k/gta-v-mods-manager/main/update_vmods.sh
+    chmod +x ~/update_vmods.sh
+    ~/update_vmods.sh
+}
+
+# Call function to check for updates before displaying the main menu
+check_for_updates
+
 # Function to list vmods folders with folder names only
 list_vmods_folders() {
     echo "Select a folder to interact with:"
