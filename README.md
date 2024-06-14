@@ -1,4 +1,3 @@
-```markdown
 # GTA V Mod Management Script
 
 This script facilitates the management of Grand Theft Auto V (GTA V) mods on Android devices. It allows you to back up, install, and replace mods easily.
